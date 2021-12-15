@@ -1,3 +1,3 @@
 module.exports = {
-    url: "mongodb://node.creta.work:30042/products"
+    url: "mongodb://node.creta.work:30042/images"
 };
