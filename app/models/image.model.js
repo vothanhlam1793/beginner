@@ -1,9 +1,12 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema(
         {
-            idModel: String,
-            typeModel: String,
-            history: Array
+            name: String,
+            type: String,
+            info: Object,
+            link: String,
+            description: String,
+            title: String
         },
         { 
             timestamps: true 
@@ -16,6 +19,6 @@ module.exports = mongoose => {
         return object;
     });
   
-    const History = mongoose.model("histories", schema);
-    return History;
+    const Image = mongoose.model("images", schema);
+    return Image;
   };
