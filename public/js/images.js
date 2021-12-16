@@ -25,11 +25,25 @@ function uploadFile(idInputFile, cb){
 var Image = Backbone.Model.extend({
     urlRoot: "/api/images"
 })
-class CretaImage {
-    constructor(){
 
+class CretaImage extends Image {
+    constructor(id){
+        super();
+        console.log(id);
+        this.onUpdateData = ()=>{};
+        this.idFile = id;
     }
-    // Upload
-    // Info -> using
-    // Get dataa from another server    
+    upload = () => {
+        var that = this;
+        uploadFile(this.idFile, function(d){
+            if(d.link){
+                that.set("link", d.link);
+                that.save({},{
+                    success: function(){
+                        that.onUpdateData();
+                    }
+                })
+            }
+        });
+    }
 }

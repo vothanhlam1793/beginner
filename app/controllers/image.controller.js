@@ -12,11 +12,6 @@ function createObj (data) {
 }
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-    if(!req.body.name){
-        res.status(400).send({
-            message: "Cannot empty the name"
-        })
-    }
     const model = new Model(createObj(req.body));
     model.save(model).then(data=>{
         res.send(data);

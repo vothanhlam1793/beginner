@@ -1,13 +1,46 @@
-<div>
-    <form ref='uploadForm' 
-            id='uploadForm' 
-            action='/upload' 
-            method='post' 
-            encType="multipart/form-data">
-        <input type="file" name="sampleFile" id="file"/>
-        <input type='submit' value='Upload!' />
-    </form>
+<div id="upload_images">
+    <upload_images></upload_images>
 </div>
 <script>
-    
+    Vue.component('upload_images', {
+        props: [],
+        data: function(){
+            var id = Math.round(Math.random()*1000000);
+            return {
+                id: id.toString()
+            }
+        },
+        methods: {
+            model: {}
+        },
+        created: function(){
+            console.log(this.id);
+            this.model = new CretaImage(this.id);
+        },
+        template: `
+            <div>
+                <div class="mb-2">
+                    <input class="form-control" placeholder="Tiêu đề" v-model="model.attributes.title">    
+                </div>
+                <div class="">
+                    <input class="form-control" :id="id" type="file">
+                </div>
+                <div class="m-2 text-center">
+                    <button class="btn btn-primary" @click="model.upload()">Lưu</button>    
+                </div>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: "#upload_images",
+        data: {
+
+        },
+        methods: {
+
+        },
+        created: function(){
+
+        }
+    })
 </script>
