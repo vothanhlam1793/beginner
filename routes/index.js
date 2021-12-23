@@ -11,6 +11,7 @@ router.get("/upload", function(req, res){
 });
 
 var Image = require("../app/models/index").images;
+var detect = require('detect-file-type');
 router.post('/upload', function(req, res) {
     let sampleFile;
     let uploadPath;
@@ -20,13 +21,23 @@ router.post('/upload', function(req, res) {
     }
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     sampleFile = req.files.sampleFile;
-    uploadPath = __dirname + '/../public/images/' + sampleFile.name;
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(uploadPath, function(err) {
-        if (err)
-        return res.status(500).send(err);
-        res.send({
-            link: "/images/" + sampleFile.name
+    var dateName = (new Date()).getTime();
+    // Tìm chuẩn của file
+    detect.fromBuffer(sampleFile.data, function(err, result) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        // Đổi lại tên file theo thời gian - tránh trùng lắp
+        fileName = dateName + "." + result.ext;
+        uploadPath = __dirname + '/../public/images/' + fileName;
+
+        // Lưu file xuống dữ liệu
+        sampleFile.mv(uploadPath, function(err) {
+            if (err)
+            return res.status(500).send(err);
+            res.send({
+                link: "/images/" + fileName
+            });
         });
     });
 });
