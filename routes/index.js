@@ -28,17 +28,6 @@ router.post('/upload', function(req, res) {
         res.send({
             link: "/images/" + sampleFile.name
         });
-        // var i = new Image({
-        //     name: sampleFile.name,
-        //     description: req.body.description || "None",
-        //     type: req.body.type || "None",
-        //     info: req.body.info || {},
-        //     title: req.body.title || "None",
-        //     link: "/images/" + sampleFile.name
-        // });
-        // i.save(i).then(data=>{
-        //     res.send(data);
-        // })
     });
 });
 
